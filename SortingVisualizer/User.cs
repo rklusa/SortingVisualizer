@@ -10,20 +10,25 @@ namespace SortingVisualizer
     internal class User
     {
         public int[] array = new int[10];
+        public ChartManager chartManager;
 
         public User() 
         {
             array = ResetArray(array);
+            chartManager = new ChartManager(array);
             MainMenu();
         }
 
         public void MainMenu()
         {
             AnsiConsole.Clear();
-            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Bubble","Merge","Quick"}));
+            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Test","Bubble","Merge","Quick"}));
 
             switch(choice)
             {
+                case "Test":
+                    TestMenu();
+                    break;
                 case "Bubble":
                     BubbleSortMenu();
                     break;
@@ -64,13 +69,18 @@ namespace SortingVisualizer
             AnsiConsole.MarkupLine("Bubble Sort");
             
             AnsiConsole.MarkupLine("[red]UnSorted:[/]");
-            ShowArray(array);
-            
+            //ShowArray(array);
+            chartManager.UpdateList(array, false);
+            chartManager.showChart();
+
+
             AnsiConsole.WriteLine();
             AnsiConsole.MarkupLine("[green]Sorted:[/]");
 
             int[] SortedArray = BubbleSort(array);
-            ShowArray(SortedArray);
+            //ShowArray(SortedArray);
+            chartManager.UpdateList(SortedArray, true);
+            chartManager.showChart();
 
             AnsiConsole.WriteLine();
             AnsiConsole.WriteLine();
@@ -106,6 +116,11 @@ namespace SortingVisualizer
             }
 
             return arr;
+        }
+
+        public void TestMenu()
+        {
+            chartManager.showChart();
         }
     }
 }
