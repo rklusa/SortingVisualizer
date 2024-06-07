@@ -22,19 +22,21 @@ namespace SortingVisualizer
         public void MainMenu()
         {
             AnsiConsole.Clear();
-            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Test","Bubble","Merge","Quick"}));
+            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Bubble","Quick","Merge","test"}));
+            array = ResetArray(array);
 
             switch(choice)
             {
-                case "Test":
-                    TestMenu();
-                    break;
                 case "Bubble":
                     BubbleSortMenu();
                     break;
+                case "Quick":
+                    QuickSortMenu();
+                    break;
                 case "Merge":
                     break;
-                case "Quick":
+                case "Test":
+                    TestMenu();
                     break;
                 default:
                     break;
@@ -55,6 +57,7 @@ namespace SortingVisualizer
             return arr;
         }
 
+        // no longer in use
         public void ShowArray(int[] arr)
         {
             for (int i = 0; i < arr.Length ; i++)
@@ -69,16 +72,12 @@ namespace SortingVisualizer
             AnsiConsole.MarkupLine("Bubble Sort");
             
             AnsiConsole.MarkupLine("[red]UnSorted:[/]");
-            //ShowArray(array);
             chartManager.UpdateList(array, false);
             chartManager.showChart();
 
-
             AnsiConsole.WriteLine();
             AnsiConsole.MarkupLine("[green]Sorted:[/]");
-
-            int[] SortedArray = BubbleSort(array);
-            //ShowArray(SortedArray);
+            int[] SortedArray = Algorithms.BubbleSort(array);
             chartManager.UpdateList(SortedArray, true);
             chartManager.showChart();
 
@@ -91,31 +90,27 @@ namespace SortingVisualizer
 
         }
 
-        public int[] BubbleSort(int[] arr)
+        public void QuickSortMenu()
         {
-            int temp;
-            bool doBreak;
+            AnsiConsole.Clear();
+            AnsiConsole.MarkupLine("Quick Sort");
 
-            for (int i = 0; i < arr.Length; i++)
-            {
-                doBreak = true;
-                for (int j = 0; j < arr.Length - 1; j++)
-                {
-                    if (arr[j] > arr[j + 1])
-                    {
-                        temp = arr[j + 1];
-                        arr[j + 1] = arr[j];
-                        arr[j] = temp;
-                        doBreak = false;
-                    }
-                }
-                if (doBreak)
-                {
-                    break;
-                }
-            }
+            AnsiConsole.MarkupLine("[red]UnSorted:[/]");
+            chartManager.UpdateList(array, false);
+            chartManager.showChart();
 
-            return arr;
+            AnsiConsole.WriteLine();
+            AnsiConsole.MarkupLine("[green]Sorted:[/]");
+            int[] SortedArray = Algorithms.QuickSort(array, 0, array.Length - 1);
+            chartManager.UpdateList(SortedArray, true);
+            chartManager.showChart();
+
+            AnsiConsole.WriteLine();
+            AnsiConsole.WriteLine();
+            AnsiConsole.MarkupLine("Press any Key to return to Main Menu");
+
+            Console.ReadLine();
+            MainMenu();
         }
 
         public void TestMenu()
