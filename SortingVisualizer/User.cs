@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,9 @@ namespace SortingVisualizer
 {
     internal class User
     {
-        public int[] array = new int[10];
+        public int[] array = new int[1000];
         public ChartManager chartManager;
+        Stopwatch methodTime;
 
         public User() 
         {
@@ -68,6 +70,7 @@ namespace SortingVisualizer
 
         public void BubbleSortMenu()
         {
+            
             AnsiConsole.Clear();
             AnsiConsole.MarkupLine("Bubble Sort");
             
@@ -77,9 +80,14 @@ namespace SortingVisualizer
 
             AnsiConsole.WriteLine();
             AnsiConsole.MarkupLine("[green]Sorted:[/]");
+            
+            StartTimer();
             int[] SortedArray = Algorithms.BubbleSort(array);
+            StopTimer();
+
             chartManager.UpdateList(SortedArray, true);
             chartManager.showChart();
+            AnsiConsole.MarkupLine("Elapsed Time:" + methodTime.ElapsedMilliseconds);
 
             AnsiConsole.WriteLine();
             AnsiConsole.WriteLine();
@@ -101,9 +109,14 @@ namespace SortingVisualizer
 
             AnsiConsole.WriteLine();
             AnsiConsole.MarkupLine("[green]Sorted:[/]");
+
+            StartTimer();
             int[] SortedArray = Algorithms.QuickSort(array, 0, array.Length - 1);
+            StopTimer();
+
             chartManager.UpdateList(SortedArray, true);
             chartManager.showChart();
+            AnsiConsole.MarkupLine("Elapsed Time:" + methodTime.ElapsedMilliseconds);
 
             AnsiConsole.WriteLine();
             AnsiConsole.WriteLine();
@@ -117,5 +130,17 @@ namespace SortingVisualizer
         {
             chartManager.showChart();
         }
+
+        public void StartTimer()
+        {
+            methodTime = new Stopwatch();
+            methodTime.Start();
+        }
+
+        public void StopTimer()
+        {
+            methodTime.Stop();
+        }
+
     }
 }
