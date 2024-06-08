@@ -75,5 +75,26 @@ namespace SortingVisualizer
 
             return arr;
         }
+
+        public static int[] SelectionSort(int[] arr)
+        {
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                int lowestVal = i;
+
+                for (int j = i + 1; j < arr.Length; j++)
+                {
+                    if (arr[j] < arr[lowestVal])
+                    {
+                        lowestVal = j;
+                    }
+                }
+
+                int holder = arr[lowestVal];
+                arr[lowestVal] = arr[i];
+                arr[i] = holder;
+            }
+            return arr;
+        }
     }
 }

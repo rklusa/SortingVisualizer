@@ -10,7 +10,7 @@ namespace SortingVisualizer
 {
     internal class User
     {
-        public int[] array = new int[1000];
+        public int[] array = new int[10];
         public ChartManager chartManager;
         Stopwatch methodTime;
 
@@ -24,7 +24,7 @@ namespace SortingVisualizer
         public void MainMenu()
         {
             AnsiConsole.Clear();
-            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Bubble","Quick","Merge","test"}));
+            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Bubble","Quick","Selection","test"}));
             array = ResetArray(array);
 
             switch(choice)
@@ -35,7 +35,8 @@ namespace SortingVisualizer
                 case "Quick":
                     QuickSortMenu();
                     break;
-                case "Merge":
+                case "Selection":
+                    SelectionSortMenu();
                     break;
                 case "Test":
                     TestMenu();
@@ -112,6 +113,34 @@ namespace SortingVisualizer
 
             StartTimer();
             int[] SortedArray = Algorithms.QuickSort(array, 0, array.Length - 1);
+            StopTimer();
+
+            chartManager.UpdateList(SortedArray, true);
+            chartManager.showChart();
+            AnsiConsole.MarkupLine("Elapsed Time:" + methodTime.ElapsedMilliseconds);
+
+            AnsiConsole.WriteLine();
+            AnsiConsole.WriteLine();
+            AnsiConsole.MarkupLine("Press any Key to return to Main Menu");
+
+            Console.ReadLine();
+            MainMenu();
+        }
+
+        public void SelectionSortMenu()
+        {
+            AnsiConsole.Clear();
+            AnsiConsole.MarkupLine("Selection Sort");
+
+            AnsiConsole.MarkupLine("[red]UnSorted:[/]");
+            chartManager.UpdateList(array, false);
+            chartManager.showChart();
+
+            AnsiConsole.WriteLine();
+            AnsiConsole.MarkupLine("[green]Sorted:[/]");
+
+            StartTimer();
+            int[] SortedArray = Algorithms.SelectionSort(array);
             StopTimer();
 
             chartManager.UpdateList(SortedArray, true);
