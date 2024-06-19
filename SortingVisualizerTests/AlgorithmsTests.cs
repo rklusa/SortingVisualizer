@@ -17,7 +17,7 @@ namespace SortingVisualizer.Tests
             // arrange
             int[] testArray = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
             // act
-            int[] sortedTestArray = Algorithms.BubbleSort(testArray);
+            int[] sortedTestArray = Algorithms.BubbleSort(testArray, 0, 0);
             // assert
             CollectionAssert.AreEqual(testArray, sortedTestArray);
         }
@@ -39,7 +39,7 @@ namespace SortingVisualizer.Tests
             // arrange
             int[] testArray = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
             // act
-            int[] sortedTestArray = Algorithms.SelectionSort(testArray);
+            int[] sortedTestArray = Algorithms.SelectionSort(testArray, 0, 0);
             // assert
             CollectionAssert.AreEqual(testArray, sortedTestArray);
         }
@@ -50,7 +50,7 @@ namespace SortingVisualizer.Tests
             // arrange
             int[] testArray = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
             // act
-            int[] sortedTestArray = Algorithms.HeapSort(testArray);
+            int[] sortedTestArray = Algorithms.HeapSort(testArray, 0, 0);
             // assert
             CollectionAssert.AreEqual(testArray, sortedTestArray);
         }

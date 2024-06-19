@@ -11,7 +11,7 @@ namespace SortingVisualizer
     public static class Algorithms
     {
         // Bubble Sort avg O(N2)
-        public static int[] BubbleSort(int[] arr)
+        public static int[] BubbleSort(int[] arr, int leftIndex, int rightIndex)
         {
             int temp;
             bool doBreak;
@@ -40,6 +40,7 @@ namespace SortingVisualizer
         // Quick Sort avg O(N * logN)
         public static int[] QuickSort(int[] arr, int leftIndex, int rightIndex)
         {
+
             var left = leftIndex;
             var right = rightIndex;
             var pivot = arr[left];
@@ -79,7 +80,7 @@ namespace SortingVisualizer
         }
 
         // Selection Sort avg O(N2)
-        public static int[] SelectionSort(int[] arr)
+        public static int[] SelectionSort(int[] arr, int leftIndex, int rightIndex)
         {
             for (int i = 0; i < arr.Length - 1; i++)
             {
@@ -101,7 +102,7 @@ namespace SortingVisualizer
         }
 
         // Heap sort Avg O(NLogN)
-        public static int[] HeapSort(int[] arr)
+        public static int[] HeapSort(int[] arr, int leftIndex, int rightIndex)
         {
             int size = arr.Length;
             

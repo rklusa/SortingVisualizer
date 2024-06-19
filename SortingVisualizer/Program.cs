@@ -1,5 +1,4 @@
 ﻿using SortingVisualizer;
-using Spectre.Console;
 
 public static class Program
 {

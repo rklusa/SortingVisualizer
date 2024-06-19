@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Spectre.Console;
 
 namespace SortingVisualizer
@@ -24,7 +19,7 @@ namespace SortingVisualizer
         public void MainMenu()
         {
             AnsiConsole.Clear();
-            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Array Size","Bubble","Quick","Selection","Heap","test"}));
+            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Array Size","Bubble","Quick","Selection","Heap"}));
             array = ResetArray(array);
 
             switch(choice)
@@ -33,21 +28,19 @@ namespace SortingVisualizer
                     ArraySizeMenu();
                     break;
                 case "Bubble":
-                    BubbleSortMenu();
+                    SortMenu(Algorithms.BubbleSort, "Bubble");
                     break;
                 case "Quick":
-                    QuickSortMenu();
+                    SortMenu(Algorithms.QuickSort, "Quick");
                     break;
                 case "Selection":
-                    SelectionSortMenu();
+                    SortMenu(Algorithms.SelectionSort, "Selection");
                     break;
                 case "Heap":
-                    HeapSortMenu();
-                    break;
-                case "Test":
-                    TestMenu();
+                    SortMenu(Algorithms.HeapSort, "Heap");
                     break;
                 default:
+                    MainMenu();
                     break;
 
             }
@@ -66,15 +59,6 @@ namespace SortingVisualizer
             return arr;
         }
 
-        // no longer in use
-        public void ShowArray(int[] arr)
-        {
-            for (int i = 0; i < arr.Length ; i++)
-            {
-                AnsiConsole.Write(arr[i] + ",");
-            }
-        }
-
         public void ArraySizeMenu()
         {
             AnsiConsole.Clear();
@@ -88,45 +72,14 @@ namespace SortingVisualizer
             AnsiConsole.MarkupLine("Press any Key to return to Main Menu");
 
             Console.ReadLine();
-
-
             MainMenu();
         }
 
-        public void BubbleSortMenu()
-        {
-            
-            AnsiConsole.Clear();
-            AnsiConsole.MarkupLine("Bubble Sort");
-            
-            AnsiConsole.MarkupLine("[red]UnSorted:[/]");
-            chartManager.UpdateList(array, false);
-            chartManager.showChart();
-
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("[green]Sorted:[/]");
-            
-            StartTimer();
-            int[] SortedArray = Algorithms.BubbleSort(array);
-            StopTimer();
-
-            chartManager.UpdateList(SortedArray, true);
-            chartManager.showChart();
-            AnsiConsole.MarkupLine("Elapsed Time:" + methodTime.ElapsedMilliseconds);
-
-            AnsiConsole.WriteLine();
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("Press any Key to return to Main Menu");
-
-            Console.ReadLine();
-            MainMenu();
-
-        }
-
-        public void QuickSortMenu()
+       
+        public void SortMenu(Func<int[], int, int, int[]> sortingMethod, string name)
         {
             AnsiConsole.Clear();
-            AnsiConsole.MarkupLine("Quick Sort");
+            AnsiConsole.MarkupLine(name + " Sort test method");
 
             AnsiConsole.MarkupLine("[red]UnSorted:[/]");
             chartManager.UpdateList(array, false);
@@ -136,12 +89,12 @@ namespace SortingVisualizer
             AnsiConsole.MarkupLine("[green]Sorted:[/]");
 
             StartTimer();
-            int[] SortedArray = Algorithms.QuickSort(array, 0, array.Length - 1);
+            int[] SortedArray = sortingMethod(array, 0, array.Length - 1);
             StopTimer();
 
             chartManager.UpdateList(SortedArray, true);
             chartManager.showChart();
-            AnsiConsole.MarkupLine("Elapsed Time:" + methodTime.ElapsedMilliseconds);
+            PrintTime();
 
             AnsiConsole.WriteLine();
             AnsiConsole.WriteLine();
@@ -149,68 +102,6 @@ namespace SortingVisualizer
 
             Console.ReadLine();
             MainMenu();
-        }
-
-        public void SelectionSortMenu()
-        {
-            AnsiConsole.Clear();
-            AnsiConsole.MarkupLine("Selection Sort");
-
-            AnsiConsole.MarkupLine("[red]UnSorted:[/]");
-            chartManager.UpdateList(array, false);
-            chartManager.showChart();
-
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("[green]Sorted:[/]");
-
-            StartTimer();
-            int[] SortedArray = Algorithms.SelectionSort(array);
-            StopTimer();
-
-            chartManager.UpdateList(SortedArray, true);
-            chartManager.showChart();
-            AnsiConsole.MarkupLine("Elapsed Time:" + methodTime.ElapsedMilliseconds);
-
-            AnsiConsole.WriteLine();
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("Press any Key to return to Main Menu");
-
-            Console.ReadLine();
-            MainMenu();
-        }
-
-        public void HeapSortMenu()
-        {
-            AnsiConsole.Clear();
-            AnsiConsole.MarkupLine("Heap Sort");
-
-            AnsiConsole.MarkupLine("[red]UnSorted:[/]");
-            chartManager.UpdateList(array, false);
-            chartManager.showChart();
-
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("[green]Sorted:[/]");
-
-            StartTimer();
-            int[] SortedArray = Algorithms.HeapSort(array);
-            StopTimer();
-
-            chartManager.UpdateList(SortedArray, true);
-            chartManager.showChart();
-            AnsiConsole.MarkupLine("Elapsed Time:" + methodTime.ElapsedMilliseconds);
-
-            AnsiConsole.WriteLine();
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("Press any Key to return to Main Menu");
-
-            Console.ReadLine();
-            MainMenu();
-
-        }
-
-        public void TestMenu()
-        {
-            chartManager.showChart();
         }
 
         public void StartTimer()
@@ -222,6 +113,11 @@ namespace SortingVisualizer
         public void StopTimer()
         {
             methodTime.Stop();
+        }
+
+        public void PrintTime()
+        {
+            AnsiConsole.MarkupLine("Elapsed Time: " + methodTime.ElapsedMilliseconds + "ms");
         }
 
     }
