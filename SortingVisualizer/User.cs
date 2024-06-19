@@ -24,11 +24,14 @@ namespace SortingVisualizer
         public void MainMenu()
         {
             AnsiConsole.Clear();
-            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Bubble","Quick","Selection","test"}));
+            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Array Size","Bubble","Quick","Selection","test"}));
             array = ResetArray(array);
 
             switch(choice)
             {
+                case "Array Size":
+                    ArraySizeMenu();
+                    break;
                 case "Bubble":
                     BubbleSortMenu();
                     break;
@@ -67,6 +70,24 @@ namespace SortingVisualizer
             {
                 AnsiConsole.Write(arr[i] + ",");
             }
+        }
+
+        public void ArraySizeMenu()
+        {
+            AnsiConsole.Clear();
+
+            int size = AnsiConsole.Ask<int>("Please specify number of array elements in [underline red]int[/] format:");
+            
+            AnsiConsole.WriteLine();
+            
+            AnsiConsole.MarkupLine("Array Size has been set to: " + size);
+            AnsiConsole.WriteLine();
+            AnsiConsole.MarkupLine("Press any Key to return to Main Menu");
+
+            Console.ReadLine();
+
+
+            MainMenu();
         }
 
         public void BubbleSortMenu()
