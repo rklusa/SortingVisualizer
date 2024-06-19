@@ -24,7 +24,7 @@ namespace SortingVisualizer
         public void MainMenu()
         {
             AnsiConsole.Clear();
-            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Array Size","Bubble","Quick","Selection","test"}));
+            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Array Size","Bubble","Quick","Selection","Heap","test"}));
             array = ResetArray(array);
 
             switch(choice)
@@ -40,6 +40,9 @@ namespace SortingVisualizer
                     break;
                 case "Selection":
                     SelectionSortMenu();
+                    break;
+                case "Heap":
+                    HeapSortMenu();
                     break;
                 case "Test":
                     TestMenu();
@@ -174,6 +177,35 @@ namespace SortingVisualizer
 
             Console.ReadLine();
             MainMenu();
+        }
+
+        public void HeapSortMenu()
+        {
+            AnsiConsole.Clear();
+            AnsiConsole.MarkupLine("Heap Sort");
+
+            AnsiConsole.MarkupLine("[red]UnSorted:[/]");
+            chartManager.UpdateList(array, false);
+            chartManager.showChart();
+
+            AnsiConsole.WriteLine();
+            AnsiConsole.MarkupLine("[green]Sorted:[/]");
+
+            StartTimer();
+            int[] SortedArray = Algorithms.HeapSort(array);
+            StopTimer();
+
+            chartManager.UpdateList(SortedArray, true);
+            chartManager.showChart();
+            AnsiConsole.MarkupLine("Elapsed Time:" + methodTime.ElapsedMilliseconds);
+
+            AnsiConsole.WriteLine();
+            AnsiConsole.WriteLine();
+            AnsiConsole.MarkupLine("Press any Key to return to Main Menu");
+
+            Console.ReadLine();
+            MainMenu();
+
         }
 
         public void TestMenu()
