@@ -54,5 +54,16 @@ namespace SortingVisualizer.Tests
             // assert
             CollectionAssert.AreEqual(testArray, sortedTestArray);
         }
+
+        [TestMethod()]
+        public void ShellSortTest()
+        {
+            // arrange
+            int[] testArray = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+            // act
+            int[] sortedTestArray = Algorithms.ShellSort(testArray, 0, 0);
+            // assert
+            CollectionAssert.AreEqual(testArray, sortedTestArray);
+        }
     }
 }

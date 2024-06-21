@@ -19,7 +19,7 @@ namespace SortingVisualizer
         public void MainMenu()
         {
             AnsiConsole.Clear();
-            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Array Size","Bubble","Quick","Selection","Heap"}));
+            var choice = AnsiConsole.Prompt(new SelectionPrompt<String>().Title("What algorthim would you like to see today?").AddChoices(new[] {"Array Size","Bubble","Quick","Selection","Heap","Shell"}));
             array = ResetArray(array);
 
             switch(choice)
@@ -38,6 +38,9 @@ namespace SortingVisualizer
                     break;
                 case "Heap":
                     SortMenu(Algorithms.HeapSort, "Heap");
+                    break;
+                case "Shell":
+                    SortMenu(Algorithms.ShellSort, "Shell");
                     break;
                 default:
                     MainMenu();
