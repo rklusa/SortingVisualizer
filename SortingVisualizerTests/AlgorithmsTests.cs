@@ -65,5 +65,16 @@ namespace SortingVisualizer.Tests
             // assert
             CollectionAssert.AreEqual(testArray, sortedTestArray);
         }
+
+        [TestMethod()]
+        public void InsertionSortTest()
+        {
+            // arrange
+            int[] testArray = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+            // act
+            int[] sortedTestArray = Algorithms.InsertionSort(testArray, 0, 0);
+            // assert
+            CollectionAssert.AreEqual(testArray, sortedTestArray);
+        }
     }
 }
