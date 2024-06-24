@@ -172,5 +172,30 @@ namespace SortingVisualizer
 
             return arr;
         }
+        // Insertion Sort avg O(N2)
+        public static int[] InsertionSort(int[] arr, int leftIndex, int rightIndex)
+        {
+            int size = arr.Length;
+            for (int i = 1; i < size; i++)
+            {
+                int temp = arr[i];
+                bool doBreak = false;
+                
+                for (int j = i - 1; j >= 0 && doBreak == false;)
+                {
+                    if (temp < arr[j])
+                    {
+                        arr[j + 1] = arr[j];
+                        j--;
+                        arr[j + 1] = temp;
+                    }
+                    else
+                    {
+                        doBreak = true;
+                    }
+                }
+            }
+            return arr;
+        }
     }
 }
